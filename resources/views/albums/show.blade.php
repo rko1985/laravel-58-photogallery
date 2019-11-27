@@ -20,7 +20,7 @@
             @foreach($album->photos as $photo)
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
-                    <img src="/storage/albums/{{$album->id}}/{{$photo->photo}}" alt="{{$photo->photo}}" height="200px">
+                    <img src="/storage/albums/{{$album->id}}/{{$photo->photo}}" alt="{{$photo->photo}}" width="220px">
                     <div class="card-body">
                         <p class="card-text">{{$photo->description}}</p>
                         <div class="d-flex justify-content-between align-items-center">
