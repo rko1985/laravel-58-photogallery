@@ -8,7 +8,9 @@ use App\Models\Album;
 class AlbumsController extends Controller
 {
     public function index(){
-        return view('albums.index');
+        $albums = Album::get();
+
+        return view('albums.index')->with('albums', $albums);
     }
 
     public function create(){
@@ -27,7 +29,7 @@ class AlbumsController extends Controller
         $extension = $request->file('cover-image')->getClientOriginalExtension();
         $filenameToStore = $filename . '_' . time() . $extension;
 
-        $path = $request->file('cover-image')->storeAs('public/album_covers', $filenameToStore); //storing actual image file
+        $request->file('cover-image')->storeAs('public/album_covers', $filenameToStore); //storing actual image file
       
         $album = new Album();
         $album->name = $request->input('name');
@@ -36,5 +38,10 @@ class AlbumsController extends Controller
         $album->save();
 
         return redirect('/albums')->with('success', 'Album created successfully.');
+    }
+
+    public function show($id){
+        $album = Album::with('photos')->find($id);
+        return view('albums.show')->with('album', $album);
     }
 }
